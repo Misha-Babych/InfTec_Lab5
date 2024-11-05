@@ -51,9 +51,14 @@ class DB
 
         if ($result !== false) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+<<<<<<< HEAD
         } else {
             return false;
         }
+=======
+        }
+        return false;
+>>>>>>> origin/feature_Task10
     }
 
     /**
@@ -64,8 +69,12 @@ class DB
     {
         $dbh = $this->getConnection();
         $stmt = $dbh->prepare($sql);
+<<<<<<< HEAD
         $result = $stmt->execute($parameters);
         return $result;
+=======
+        return $stmt->execute($parameters);
+>>>>>>> origin/feature_Task10
     }
 
 
@@ -80,7 +89,11 @@ class DB
         );
         $statement = $dbh->prepare($sql);
 
+<<<<<<< HEAD
         $statement->execute(array($id));
+=======
+        return $statement->execute(array($id));
+>>>>>>> origin/feature_Task10
     }
 
     public function updateEntity(DbModelInterface $model, int $id, $values = [])
@@ -110,6 +123,23 @@ class DB
             Util::arrayToList($values, "?")
         );
         $statement = $dbh->prepare($sql);
+<<<<<<< HEAD
         return $statement->execute(array_values($values));
+=======
+
+        if ($statement->execute(array_values($values))) {
+            $sql = sprintf(
+                "SELECT %s FROM %s ORDER BY %s DESC LIMIT 1; ",
+                $model->getPrimaryKeyName(),
+                $model->getTableName(),
+                $model->getPrimaryKeyName()
+            );
+            $result = $this->query($sql);
+            if ($result){
+                return $result[0][$model->getPrimaryKeyName()];
+            }
+        }
+        return false;
+>>>>>>> origin/feature_Task10
     }
 }

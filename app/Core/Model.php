@@ -82,7 +82,11 @@ class Model implements DbModelInterface
         if (count($params) > 0) {
             $this->sql .= sprintf(
                 " where %s",
+<<<<<<< HEAD
                 Util::keyValueToList($params, "%s=%s")
+=======
+                Util::keyValueToList(Util::quoteStringValues($params), "%s=%s", " and ")
+>>>>>>> origin/feature_Task10
             );
         }
         return $this;
@@ -166,7 +170,15 @@ class Model implements DbModelInterface
     public function addItem($values)
     {
         $db = new DB();
+<<<<<<< HEAD
         $db->createEntity($this, $values);
+=======
+        $id = $db->createEntity($this, $values);
+        if ($id) {
+            return $this->getItem($id);
+        }
+        return null;
+>>>>>>> origin/feature_Task10
     }
 
     public function deleteItem($id)
@@ -178,6 +190,10 @@ class Model implements DbModelInterface
     public function saveItem($id, $values)
     {
         $db = new DB();
+<<<<<<< HEAD
         $db->updateEntity($this, $id, $values);
+=======
+        return  $db->updateEntity($this, $id, $values);
+>>>>>>> origin/feature_Task10
     }
 }
